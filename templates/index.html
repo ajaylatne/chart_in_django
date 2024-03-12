@@ -1,0 +1,39 @@
+<html>
+<head>
+<script>
+  function myFunc(var1) {
+        console.log(var1)
+        var chart = new CanvasJS.Chart("chartContainer",{
+          theme: "light2",
+          animationEnabled: true,
+          exportEnabled: true,
+          title: {
+            text: "Language Proficiency",
+            dockInsidePlotArea: true,
+            verticalAlign: "center",
+            maxWidth: 140,
+            fontSize: 22
+          },
+          data: [{
+            type: "doughnut",
+            indexLabel: "{label} - {y}",
+            yValueFormatString: "#,##0.0\"%\"",
+            startAngle: 90,
+            dataPoints: var1
+          }]
+        });
+        chart.render();
+  }
+</script>
+    <style>
+        button{ padding: 20px; }
+    </style>
+</head>
+<body>
+    {% for stu, lang in final_list %}
+           <button onclick="myFunc({{ lang|safe }})">{{ stu.student_name }}</button>
+    {% endfor %}
+
+    <div id="chartContainer" style="width: 100%; height: 360px;"></div>
+    <script src="https://cdn.canvasjs.com/ga/canvasjs.min.js"></script>
+</body>
